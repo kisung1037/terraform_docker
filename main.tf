@@ -18,6 +18,16 @@ resource "docker_image" "jenkins" {
   keep_locally = false
 }
 
+resource "docker_image" "ubuntu" {
+  name         = "ubuntu:latest"
+  keep_locally = false
+}
+
+resource "docker_image" "busybox" {
+  name         = "busybox:latest"
+  keep_locally = false
+}
+
 
 # docker container
 
@@ -37,4 +47,16 @@ resource "docker_container" "jenkins" {
     internal = 8080
     external = 8080
   }
+}
+
+resource "docker_container" "ubuntu" {
+  image = docker_image.ubuntu.latest
+  name ="ubuntu"
+  command = ["sleep","3600"]
+}
+
+resource "docker_container" "busybox" {
+  image = docker_image.busybox.latest
+  name ="busybox"
+  command = ["sleep","3600"]
 }
